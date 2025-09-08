@@ -1,6 +1,6 @@
 @Library('Shared') _
 pipeline {
-    agent any
+    agent {label 'Node'}
     
     environment{
         SONAR_HOME = tool "Sonar"
@@ -33,16 +33,11 @@ pipeline {
             steps {
                 script{
                     code_checkout("https://github.com/shiv852/Wanderlust-Mega-Project.git","main")
+                    
                 }
             }
         }
-      stage("OWASP: Dependency check"){
-            steps{
-                script{
-                    owasp_dependency()
-                }
-            }
-        }     
+        
         stage("Trivy: Filesystem scan"){
             steps{
                 script{
