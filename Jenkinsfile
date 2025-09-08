@@ -36,22 +36,13 @@ pipeline {
                 }
             }
         }
-        stage('OWASP: Dependency check') {
-            steps {
-                script {
-                    nodejs('Node16') {
-                        dir('backend') {
-                            sh 'npm install'
-                            sh 'your-backend-dependency-check-command'
-                        }
-                        dir('frontend') {
-                            sh 'npm install'
-                            sh 'your-frontend-dependency-check-command'
-                        }
-                    }
+      stage("OWASP: Dependency check"){
+            steps{
+                script{
+                    owasp_dependency()
                 }
             }
-        }        
+        }     
         stage("Trivy: Filesystem scan"){
             steps{
                 script{
